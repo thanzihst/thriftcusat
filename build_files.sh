@@ -5,10 +5,17 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 
 echo "Collecting static files..."
-python manage.py collectstatic --noinput
+mkdir -p static
+mkdir -p media
+mkdir -p staticfiles
+python manage.py collectstatic --noinput --clear
 
 echo "Running migrations..."
-python manage.py migrate --noinput
+python manage.py makemigrations
+python manage.py migrate
+
+# Create a test file to verify static files
+echo "Testing static files" > static/test.txt
 
 echo "Build completed successfully!"
 
